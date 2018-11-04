@@ -2,8 +2,12 @@
 var app = angular.module("app", ['ngGrid']);
  
 // Controller Part
-app.controller("StudentController", function($scope, $http) {
- 
+app.controller("StudentController",['$scope','$http','StudentService', function($scope, $http,StudentService) {
+    var paginationOptions = {
+        pageNumber: 1,
+        pageSize: 5,
+        sort: null
+    };
  
     $scope.students = [];
     $scope.studentForm = {
@@ -102,10 +106,21 @@ app.controller("StudentController", function($scope, $http) {
         $scope.studentForm.stuSex = "";
         $scope.studentForm.address = "";
     };
+
+    StudentService.getStudents(paginationOptions.pageNumber,
+        paginationOptions.pageSize).then(function successCallback(data) {
+            $scope.gridOptions.data = data.content;
+            $scope.gridOptions.totalItems = data.totalElements;
+    }, function errorCallback(data) {
+        console.log("Error: " + res.status + " : " + res.data);
+    });
+
     $scope.gridOptions = {
-        data: 'students',
+        paginationPageSizes: [5, 10, 20],
+        paginationPageSize: paginationOptions.pageSize,
         enableRowSelection: false,
         enableCellEditOnFocus: true,
+        enableColumnMenus:false,
         multiSelect: false,
         columnDefs: [
             { field: 'stuId', displayName: 'stuId', enableCellEdit: false } ,
@@ -113,7 +128,37 @@ app.controller("StudentController", function($scope, $http) {
             { field: 'stuSex', displayName: 'stuSex', enableCellEdit: true} ,
             { field:'', displayName: 'Save', enableCellEdit: false,
                 cellTemplate: '<button id="editBtn" type="button"  ng-click="saveItem(row.entity.name, row.entity.surname,row.entity.address)" >Save</button>'}
-        ]
+        ],onRegisterApi: function(gridApi) {
+            alert("block gridApi: ");
+            $scope.gridApi = gridApi;
+            gridApi.pagination.on.paginationChanged($scope, function (newPage, pageSize) {
+                paginationOptions.pageNumber = newPage;
+                paginationOptions.pageSize = pageSize;
+                StudentService.getStudents(newPage,pageSize).then(function successCallback(data) {
+                    alert("data.data: "+data.data);
+                    $scope.gridOptions.data = data.data;
+                    $scope.gridOptions.totalItems = data.totalElements;
+                }, function errorCallback(data) {
+                    console.log("Error: " + res.status + " : " + res.data);
+                });
+            });
+        }
 
     };
-});
+}]);
+app.service('StudentService',['$http', function ($http) {
+alert("Welcome student service");
+    function getStudents(pageNumber,size) {
+        pageNumber = pageNumber > 0?pageNumber - 1:0;
+        return  $http({
+            method: 'GET',
+            url: 'student/get?page='+pageNumber+'&size='+size
+        });
+    }
+
+    return {
+        getStudents:getStudents
+    };
+
+}]);
+

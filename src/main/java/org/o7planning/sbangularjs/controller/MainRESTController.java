@@ -3,22 +3,19 @@ package org.o7planning.sbangularjs.controller;
 import java.util.List;
 
 
+import org.o7planning.sbangularjs.exception.MyResourceNotFoundException;
 import org.o7planning.sbangularjs.model.Student;
 import org.o7planning.sbangularjs.servies.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-  
+import org.springframework.web.bind.annotation.*;
+
 @RestController 
 public class MainRESTController {
   
     @Autowired
-    private StudentService StudentService;
+    private StudentService studentService;
   
   
     // URL:
@@ -31,7 +28,7 @@ public class MainRESTController {
                     MediaType.APPLICATION_XML_VALUE })
     @ResponseBody
     public List<Student> getStudents() {
-        List<Student>students= StudentService.lstStudent();
+        List<Student>students= studentService.lstStudent();
         
         return students;
     }
@@ -46,7 +43,7 @@ public class MainRESTController {
                     MediaType.APPLICATION_XML_VALUE })
     @ResponseBody
     public Student getStudent(@PathVariable("stuId") Long stuId) {
-        return StudentService.getById(stuId);
+        return studentService.getById(stuId);
     }
   
     // URL:
@@ -63,7 +60,7 @@ public class MainRESTController {
   
         System.out.println("(Service Side) Creating student with stuName: " + student.getStuName());
   
-         StudentService.addStudent(student);
+         studentService.addStudent(student);
 		return student;
     }
   
@@ -80,7 +77,7 @@ public class MainRESTController {
   
        
   
-         StudentService.upDateStudent(student, id);
+         studentService.upDateStudent(student, id);
     }
   
     // URL:
@@ -93,7 +90,15 @@ public class MainRESTController {
   
         System.out.println("(Service Side) Deleting student with Id: " + stuId);
   
-        StudentService.deletStudent(stuId);
+        studentService.deletStudent(stuId);
     }
-  
+    @RequestMapping(value = "/student/get", params = { "page", "size" }, method = RequestMethod.GET, produces = "application/json")
+    public Page<Student> findPaginated(@RequestParam("page") int page, @RequestParam("size") int size) {
+
+        Page<Student> resultPage = studentService.findPaginated(page, size);
+        if (page > resultPage.getTotalPages()) {
+            throw new MyResourceNotFoundException();
+        }
+        return resultPage;
+    }
 }
