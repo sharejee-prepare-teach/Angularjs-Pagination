@@ -1,5 +1,5 @@
 
-var app = angular.module("app", []);
+var app = angular.module("app", ['ngGrid']);
  
 // Controller Part
 app.controller("StudentController", function($scope, $http) {
@@ -101,5 +101,19 @@ app.controller("StudentController", function($scope, $http) {
         $scope.studentForm.stuName = "";
         $scope.studentForm.stuSex = "";
         $scope.studentForm.address = "";
+    };
+    $scope.gridOptions = {
+        data: 'students',
+        enableRowSelection: false,
+        enableCellEditOnFocus: true,
+        multiSelect: false,
+        columnDefs: [
+            { field: 'stuId', displayName: 'stuId', enableCellEdit: false } ,
+            { field: 'stuName', displayName: 'stuName', enableCellEdit: false} ,
+            { field: 'stuSex', displayName: 'stuSex', enableCellEdit: true} ,
+            { field:'', displayName: 'Save', enableCellEdit: false,
+                cellTemplate: '<button id="editBtn" type="button"  ng-click="saveItem(row.entity.name, row.entity.surname,row.entity.address)" >Save</button>'}
+        ]
+
     };
 });
