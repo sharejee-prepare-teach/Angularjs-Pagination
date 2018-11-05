@@ -3,17 +3,14 @@ package org.o7planning.sbangularjs.controller;
 import java.util.List;
 
 
+import org.o7planning.sbangularjs.exception.MyResourceNotFoundException;
 import org.o7planning.sbangularjs.model.Student;
 import org.o7planning.sbangularjs.servies.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-  
+import org.springframework.web.bind.annotation.*;
+
 @RestController 
 public class MainRESTController {
   
@@ -32,9 +29,23 @@ public class MainRESTController {
     @ResponseBody
     public List<Student> getStudents() {
         List<Student>students= StudentService.lstStudent();
-        
+
         return students;
     }
+    @RequestMapping(value = "/students/p/{page}/{pageSize}", //
+            method = RequestMethod.GET,
+            produces = { MediaType.APPLICATION_JSON_VALUE, //
+                    MediaType.APPLICATION_XML_VALUE })
+    @ResponseBody
+    public Page<Student> getStudentsP(@PathVariable("page") int page, @PathVariable("pageSize") int pageSize) {
+        Page<Student> resultPage = StudentService.findPaginated(page, pageSize);
+        if (page > resultPage.getTotalPages()) {
+            throw new MyResourceNotFoundException();
+        }
+
+        return resultPage;
+    }
+
   
     // URL:
     // http://localhost:8080/SomeContextPath/student/{stuId}

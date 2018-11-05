@@ -128,17 +128,21 @@ app.controller("StudentController", function($scope, $http) {
                 var ft = searchText.toLowerCase();
                 $http({
                     method:'GET',
-                    url:'/students',
-                    data:{currentPage:page,pageSize:pageSize}
+                    url:'/students/p/'+page+'/'+pageSize,
+                    data:{
+                        currentPage:page,
+                        pageSize:pageSize
+                    }
                 }).then(
                     function(largeLoad) { // success
                         //with data must send the total no of items as well
-                        $scope.totalServerItems=largeLoad.data.totalElement;
+                        $scope.totalServerItems=largeLoad.data.total;
                         //here's the list of data to be displayed
                         data = largeLoad.data.list.filter(function(item) {
                             return JSON.stringify(item).toLowerCase().indexOf(ft) != -1;
                         });
                         $scope.setPagingData(data,page,pageSize);
+                        $scope.students = largeLoad.data.content;
                     },
                     function(res) { // error
                         console.log("Error: " + res.status + " : " + res.data);
@@ -149,12 +153,16 @@ app.controller("StudentController", function($scope, $http) {
             {
                 $http({
                     method:'GET',
-                    url:'/students',
-                    data:{currentPage:page,pageSize:pageSize}
+                    url:'/students/p/'+page+'/'+pageSize,
+                    data:{
+                        currentPage:page,
+                        pageSize:pageSize
+                    }
                 }).then(
                     function(largeLoad) { // success
-                        $scope.totalServerItems=largeLoad.data.totalElement;
+                        $scope.totalServerItems=largeLoad.data.total;
                         $scope.setPagingData(largeLoad.data.list,page,pageSize);
+                        $scope.students = largeLoad.data.content;
                     },
                     function(res) { // error
                         console.log("Error: " + res.status + " : " + res.data);
