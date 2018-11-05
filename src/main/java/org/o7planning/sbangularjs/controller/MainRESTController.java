@@ -1,6 +1,8 @@
 package org.o7planning.sbangularjs.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 import org.o7planning.sbangularjs.exception.MyResourceNotFoundException;
@@ -37,16 +39,19 @@ public class MainRESTController {
             produces = { MediaType.APPLICATION_JSON_VALUE, //
                     MediaType.APPLICATION_XML_VALUE })
     @ResponseBody
-    public Page<Student> getStudentsP(@PathVariable("page") int page, @PathVariable("pageSize") int pageSize) {
+    public  Map<String,Object> getStudentsP(@PathVariable("page") int page, @PathVariable("pageSize") int pageSize) {
         Page<Student> resultPage = studentService.findPaginated(page, pageSize);
-        if (page > resultPage.getTotalPages()) {
+        if (page >= resultPage.getTotalPages()) {
             throw new MyResourceNotFoundException();
         }
-
-        return resultPage;
+        Map<String,Object> map = new HashMap<>();
+        map.put("content",resultPage.getContent());
+        map.put("total",resultPage.getTotalElements());
+        map.put("list",resultPage.getContent());
+        return map;
     }
 
-  
+
     // URL:
     // http://localhost:8080/SomeContextPath/student/{stuId}
     // http://localhost:8080/SomeContextPath/student/{stuId}.xml

@@ -136,12 +136,12 @@ app.controller("StudentController", function($scope, $http) {
                 }).then(
                     function(largeLoad) { // success
                         //with data must send the total no of items as well
-                        $scope.totalServerItems=largeLoad.data.total;
+                        $scope.totalServerItems = largeLoad.data.total;
                         //here's the list of data to be displayed
-                        data = largeLoad.data.list.filter(function(item) {
+                        data = largeLoad.data.list.filter(function (item) {
                             return JSON.stringify(item).toLowerCase().indexOf(ft) != -1;
                         });
-                        $scope.setPagingData(data,page,pageSize);
+                        $scope.setPagingData(data, page, pageSize);
                         $scope.students = largeLoad.data.content;
                     },
                     function(res) { // error
@@ -160,8 +160,10 @@ app.controller("StudentController", function($scope, $http) {
                     }
                 }).then(
                     function(largeLoad) { // success
-                        $scope.totalServerItems=largeLoad.data.total;
-                        $scope.setPagingData(largeLoad.data.list,page,pageSize);
+                        alert("Page: "+page);
+                        alert("PageSize: "+pageSize);
+                        $scope.totalServerItems = largeLoad.data.total;
+                        $scope.setPagingData(largeLoad.data.list, page, pageSize);
                         $scope.students = largeLoad.data.content;
                     },
                     function(res) { // error
