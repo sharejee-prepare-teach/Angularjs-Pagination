@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 public class MainRESTController {
   
     @Autowired
-    private StudentService StudentService;
+    private StudentService studentService;
   
   
     // URL:
@@ -28,7 +28,7 @@ public class MainRESTController {
                     MediaType.APPLICATION_XML_VALUE })
     @ResponseBody
     public List<Student> getStudents() {
-        List<Student>students= StudentService.lstStudent();
+        List<Student>students= studentService.lstStudent();
 
         return students;
     }
@@ -38,7 +38,7 @@ public class MainRESTController {
                     MediaType.APPLICATION_XML_VALUE })
     @ResponseBody
     public Page<Student> getStudentsP(@PathVariable("page") int page, @PathVariable("pageSize") int pageSize) {
-        Page<Student> resultPage = StudentService.findPaginated(page, pageSize);
+        Page<Student> resultPage = studentService.findPaginated(page, pageSize);
         if (page > resultPage.getTotalPages()) {
             throw new MyResourceNotFoundException();
         }
@@ -57,7 +57,7 @@ public class MainRESTController {
                     MediaType.APPLICATION_XML_VALUE })
     @ResponseBody
     public Student getStudent(@PathVariable("stuId") Long stuId) {
-        return StudentService.getById(stuId);
+        return studentService.getById(stuId);
     }
   
     // URL:
@@ -74,7 +74,7 @@ public class MainRESTController {
   
         System.out.println("(Service Side) Creating student with stuName: " + student.getStuName());
   
-         StudentService.addStudent(student);
+         studentService.addStudent(student);
 		return student;
     }
   
@@ -91,7 +91,7 @@ public class MainRESTController {
   
        
   
-         StudentService.upDateStudent(student, id);
+         studentService.upDateStudent(student, id);
     }
   
     // URL:
@@ -104,7 +104,7 @@ public class MainRESTController {
   
         System.out.println("(Service Side) Deleting student with Id: " + stuId);
   
-        StudentService.deletStudent(stuId);
+        studentService.deletStudent(stuId);
     }
   
 }
