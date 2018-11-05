@@ -1,5 +1,9 @@
 INSERT INTO student(stu_id,stu_name,stu_sex,address)
-VALUES(4,'St4','M','Ad4')
+VALUES
+(1,'St','M','Ad')
+,(2,'St2','M','Ad2')
+,(3,'St3','M','Ad3')
+,(4,'St4','M','Ad4')
 ,(5,'St5','M','Ad5')
 ,(6,'St6','M','Ad6')
 ,(7,'St7','M','Ad7')
