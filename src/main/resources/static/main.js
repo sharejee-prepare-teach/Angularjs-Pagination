@@ -95,7 +95,6 @@ app.controller("StudentController", function($scope, $http) {
         }).then(
             function(largeLoad) { // success
                 //with data must send the total no of items as well
-                alert("largeLoad.data.total: " + largeLoad.data.total);
                 $scope.totalServerItems = largeLoad.data.total;
                 //here's the list of data to be displayed
                 data = largeLoad.data.list.filter(function (item) {
