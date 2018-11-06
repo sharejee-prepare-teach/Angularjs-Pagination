@@ -15,4 +15,14 @@ public class MainController {
     public String toTwo() {
         return "two";
     }
+
+    @RequestMapping("/main")
+    public String toMain() {
+        return "main";
+    }
+
+    @RequestMapping("/index2")
+    public String toIndex2() {
+        return "index2";
+    }
 }

@@ -1,5 +1,5 @@
 
-var app = angular.module("app", ['ngGrid']);
+var app = angular.module("app", ['ngGrid','ui.router']);
  
 // Controller Part
 app.controller("StudentController", function($scope, $http) {
@@ -116,4 +116,36 @@ app.controller("StudentController", function($scope, $http) {
         ]
 
     };
+});
+
+app.config(function ($stateProvider, $urlRouterProvider) {
+    $stateProvider.state('state1', {
+        url: '/main',
+        templateUrl: 'main.html',
+        controller: 'MyCtrl'
+    });
+    $stateProvider.state('state2', {
+        url: '/one',
+        templateUrl: 'two.html',
+        controller: 'MyCtrl'
+    });
+
+    $urlRouterProvider.otherwise("/");
+});
+
+app.controller('MyCtrl', function ($scope, $http) {
+    $http.get('students')
+        .success(function(data) {
+            $scope.students = data;
+        });
+
+    $scope.columns = [
+        { field: 'name' },
+        { field: 'dob', cellFilter: 'date' }
+    ];
+
+    $scope.gridOptions = {
+        data: 'students',
+        columnDefs: 'columns'
+    }
 });
