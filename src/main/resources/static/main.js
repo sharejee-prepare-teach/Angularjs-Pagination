@@ -14,7 +14,7 @@ app.controller("StudentController", function($scope, $http) {
     };
  
     // Now load the data from server
-    _refreshStudentData();
+    _refreshStudentDataP();
  
     // HTTP POST/PUT methods for add/edit student  
     // Call: http://localhost:8080/student
@@ -45,7 +45,7 @@ app.controller("StudentController", function($scope, $http) {
  
     $scope.createStudent = function() {
         _clearFormData();
-    }
+    };
  
     // HTTP DELETE- delete student by Id
     // Call: http://localhost:8080/student/{stuId}
@@ -75,6 +75,34 @@ app.controller("StudentController", function($scope, $http) {
         }).then(
             function(res) { // success
                 $scope.students = res.data;
+            },
+            function(res) { // error
+                console.log("Error: " + res.status + " : " + res.data);
+            }
+        );
+    }
+
+    function _refreshStudentDataP() {
+        var data;
+        var ft = "";
+        $http({
+            method:'GET',
+            url:'/students/p/'+1+'/'+3,
+            data:{
+                currentPage:1,
+                pageSize:3
+            }
+        }).then(
+            function(largeLoad) { // success
+                //with data must send the total no of items as well
+                alert("largeLoad.data.total: " + largeLoad.data.total);
+                $scope.totalServerItems = largeLoad.data.total;
+                //here's the list of data to be displayed
+                data = largeLoad.data.list.filter(function (item) {
+                    return JSON.stringify(item).toLowerCase().indexOf(ft) != -1;
+                });
+                $scope.setPagingData(data, 1, 3);
+                $scope.students = largeLoad.data.content;
             },
             function(res) { // error
                 console.log("Error: " + res.status + " : " + res.data);
