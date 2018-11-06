@@ -1,11 +1,15 @@
 <!DOCTYPE html>
-<html ng-app="myApp">
+<html
+        lang="en"
+        ng-app="app"
+        xmlns:th="http://www.thymeleaf.org"
+>
 
-<head lang="en">
+<head>
     <meta charset="utf-8" />
     <title>Custom Plunker</title>
     <link rel="stylesheet" type="text/css" href="https://rawgithub.com/angular-ui/ng-grid/v2.0.11/ng-grid.css" />
-    <link rel="stylesheet" type="text/css" href="main.css" />
+    <link th:href="@{/main.css}" rel="stylesheet" />
 </head>
 
 <body ng-controller="MyCtrl">
@@ -14,11 +18,12 @@
 <br/>
 <div ui-view="ui-view"></div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.21/angular.js"></script>
-<script src="https://rawgit.com/angular-ui/ui-router/0.2.11/release/angular-ui-router.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.21/angular.js"></script>
+<script type="text/javascript" src="https://rawgit.com/angular-ui/ui-router/0.2.11/release/angular-ui-router.js"></script>
 <script type="text/javascript" src="https://rawgithub.com/angular-ui/ng-grid/v2.0.13/build/ng-grid.debug.js"></script>
-<script type="text/javascript" src="main.js"></script>
+<script type="text/javascript" th:src="@{/main.js}"></script>
+
 </body>
 
 </html>
