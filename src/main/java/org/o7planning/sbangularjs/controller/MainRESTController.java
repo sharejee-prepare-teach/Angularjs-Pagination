@@ -40,8 +40,8 @@ public class MainRESTController {
                     MediaType.APPLICATION_XML_VALUE })
     @ResponseBody
     public  Map<String,Object> getStudentsP(@PathVariable("page") int page, @PathVariable("pageSize") int pageSize) {
-        Page<Student> resultPage = studentService.findPaginated(page, pageSize);
-        if (page >= resultPage.getTotalPages()) {
+        Page<Student> resultPage = studentService.findPaginated(page-1, pageSize);
+        if (page > resultPage.getTotalPages()) {
             throw new MyResourceNotFoundException();
         }
         Map<String,Object> map = new HashMap<>();

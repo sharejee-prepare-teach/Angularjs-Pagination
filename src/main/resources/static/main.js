@@ -160,8 +160,6 @@ app.controller("StudentController", function($scope, $http) {
                     }
                 }).then(
                     function(largeLoad) { // success
-                        alert("Page: "+page);
-                        alert("PageSize: "+pageSize);
                         $scope.totalServerItems = largeLoad.data.total;
                         $scope.setPagingData(largeLoad.data.list, page, pageSize);
                         $scope.students = largeLoad.data.content;
