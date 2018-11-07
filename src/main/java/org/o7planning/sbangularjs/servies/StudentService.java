@@ -2,10 +2,11 @@ package org.o7planning.sbangularjs.servies;
 
 import java.util.List;
 
+import org.o7planning.sbangularjs.model.IOperations;
 import org.o7planning.sbangularjs.model.Student;
 
 
-public interface StudentService {
+public interface StudentService extends IOperations<Student> {
 	 List<Student>lstStudent();
 	Student getById(Long id);
 	void  addStudent(Student student);
