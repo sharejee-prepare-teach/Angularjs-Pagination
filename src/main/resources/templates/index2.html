@@ -1,9 +1,5 @@
 <!DOCTYPE html>
-<html
-        lang="en"
-        ng-app="app"
-        xmlns:th="http://www.thymeleaf.org"
->
+<html ng-app="app">
 
 <head>
     <meta charset="utf-8" />
@@ -13,7 +9,13 @@
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.21/angular.js"></script>
     <script type="text/javascript" src="https://rawgit.com/angular-ui/ui-router/0.2.11/release/angular-ui-router.js"></script>
     <script type="text/javascript" src="https://rawgithub.com/angular-ui/ng-grid/v2.0.13/build/ng-grid.debug.js"></script>
-
+    <style type="text/css">
+        .gridStyle {
+            border: 1px solid rgb(212,212,212);
+            width: 600px;
+            height: 300px;
+        }
+    </style>
    <!-- <link th:href="@{/main.css}" rel="stylesheet" />-->
     <script type="text/javascript">
         var app = angular.module("app", ['ngGrid','ui.router']);
@@ -119,20 +121,6 @@
                 $scope.studentForm.stuSex = "";
                 $scope.studentForm.address = "";
             };
-            $scope.gridOptions = {
-                data: 'students',
-                enableRowSelection: false,
-                enableCellEditOnFocus: true,
-                multiSelect: false,
-                columnDefs: [
-                    { field: 'stuId', displayName: 'stuId', enableCellEdit: false } ,
-                    { field: 'stuName', displayName: 'stuName', enableCellEdit: false} ,
-                    { field: 'stuSex', displayName: 'stuSex', enableCellEdit: true} ,
-                    { field:'', displayName: 'Save', enableCellEdit: false,
-                        cellTemplate: '<button id="editBtn" type="button"  ng-click="saveItem(row.entity.name, row.entity.surname,row.entity.address)" >Save</button>'}
-                ]
-
-            };
         });
 
         app.config(function ($stateProvider, $urlRouterProvider) {
@@ -143,28 +131,38 @@
             });
             $stateProvider.state('state2', {
                 url: '/two',
-                templateUrl: 'two',
-                controller: 'MyCtrl'
+                templateUrl: 'two'
             });
 
             $urlRouterProvider.otherwise("/");
         });
 
         app.controller('MyCtrl', function ($scope, $http) {
-            $http.get('students')
-                .success(function(data) {
-                    $scope.students = data;
-                });
-
-            $scope.columns = [
-                { field: 'name' },
-                { field: 'dob', cellFilter: 'date' }
-            ];
+            _refreshStudentData();
+            function _refreshStudentData() {
+                $http({
+                    method: 'GET',
+                    url: '/students'
+                }).then(
+                    function(res) { // success
+                        $scope.students = res.data;
+                    },
+                    function(res) { // error
+                        console.log("Error: " + res.status + " : " + res.data);
+                    }
+                );
+            }
 
             $scope.gridOptions = {
                 data: 'students',
-                columnDefs: 'columns'
-            }
+                enablePaging: false,
+                //field : id is the key from the data coming from server side
+                columnDefs:[
+                    {displayName:'stuId',field:'stuId'},
+                    {displayName:'stuName',field:'stuName'},
+                    {displayName:'address',field:'address'}
+                ]
+            };
         });
 
     </script>
@@ -174,7 +172,7 @@
 <a ui-sref="state1">State One</a> | <a ui-sref="state2">State Two</a>
 <br/>
 <br/>
-<div ui-view="ui-view"></div>
+<div ui-view="" autoscroll="false"></div>
 
 <!--<script type="text/javascript" th:src="@{/main.js}"></script>-->
 
