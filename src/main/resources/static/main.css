@@ -22,3 +22,11 @@ table td, th  {
     background: #CD5C5C;
     cursor: pointer;
 }
+
+.gridStyle {
+    border: 1px solid rgb(212,212,212);
+    height: 300px;
+}
+h1{
+    background-color: green;
+}

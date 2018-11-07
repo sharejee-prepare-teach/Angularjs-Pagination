@@ -1,9 +1,11 @@
 <!DOCTYPE html>
-<html ng-app="app">
-
+<html
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8" />
-    <title>Custom Plunker</title>
+    <title>Custom Route and table</title>
+    <link type="text/css" rel="stylesheet" th:href="@{/main.css}" href="../main.css" />
     <link rel="stylesheet" type="text/css" href="https://rawgithub.com/angular-ui/ng-grid/v2.0.11/ng-grid.css" />
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.21/angular.js"></script>
@@ -11,15 +13,12 @@
     <script type="text/javascript" src="https://rawgithub.com/angular-ui/ng-grid/v2.0.13/build/ng-grid.debug.js"></script>
     <style type="text/css">
         .gridStyle {
-            border: 1px solid rgb(212,212,212);
-            width: 600px;
             height: 300px;
         }
     </style>
-   <!-- <link th:href="@{/main.css}" rel="stylesheet" />-->
+<!--    <link th:href="@{/main.css}" rel="stylesheet" />-->
     <script type="text/javascript">
         var app = angular.module("app", ['ngGrid','ui.router']);
-
         // Controller Part
         app.controller("StudentController", function($scope, $http) {
 
@@ -168,7 +167,7 @@
     </script>
 </head>
 
-<body ng-controller="MyCtrl">
+<body ng-app="app" ng-controller="MyCtrl">
 <a ui-sref="state1">State One</a> | <a ui-sref="state2">State Two</a>
 <br/>
 <br/>

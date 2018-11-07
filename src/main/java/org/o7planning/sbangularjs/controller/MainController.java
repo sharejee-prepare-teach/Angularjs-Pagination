@@ -25,4 +25,9 @@ public class MainController {
     public String toIndex2() {
         return "index2";
     }
+
+    @RequestMapping("/twotest")
+    public String toTwotest() {
+        return "twotest";
+    }
 }
