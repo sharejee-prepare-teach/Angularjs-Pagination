@@ -24,6 +24,6 @@ app.controller('submenuController', function ($scope, $rootScope, $state) {
     $scope.$watch(function(){
         return $state.$current.name
     }, function(currentStateName){
-        $scope.showSubMenu = currentStateName === 'news.sports' ? false : true;
+        $scope.showSubMenu = (currentStateName === 'news.sports' ? false : true);
     })
 });
