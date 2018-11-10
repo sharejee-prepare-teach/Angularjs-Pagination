@@ -16,8 +16,7 @@ app.config(function($stateProvider, $urlRouterProvider){
         })
         .state('student', {
             url: '/student',
-            templateUrl : 'student',
-            controller : 'StudentController'
+            templateUrl : 'student'
         })
         .state('about', {
             url: '/about',
@@ -40,7 +39,9 @@ app.controller('submenuController', function ($scope, $rootScope, $state) {
         $scope.showSubMenu = (currentStateName === 'news.sports' ? false : true);
     });
 });
-
+app.controller('StudentControllerS', function ($scope, $http) {
+alert("StudentControllerS");
+});
 app.controller('StudentController', function ($scope, $http) {
     alert("StudentController");
     _refreshStudentData();
