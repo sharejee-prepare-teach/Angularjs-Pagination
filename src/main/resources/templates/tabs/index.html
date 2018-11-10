@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>index</title>
+    <link data-require="bootstrap@3.3.7" data-semver="3.3.7" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <script data-require="jquery@*" data-semver="3.1.1" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script data-require="bootstrap@3.3.7" data-semver="3.3.7" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script data-require="angularjs@1.6.2" data-semver="1.6.2" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.2/angular.js"></script>
+    <script data-require="ui-router@*" data-semver="1.0.0-beta.2" src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.0-beta.2/angular-ui-router.js"></script>
+   <!-- <link type="text/css" rel="stylesheet" href="style.css" />-->
+    <script type="text/javascript" src="app.js"></script>
+</head>
+<body ng-app="myApp">
+    <ul class="nav nav-pills">
+        <li role="presentation" ui-sref-active="active"><a ui-sref="news">News</a></li>
+        <li role="presentation" ui-sref-active="active"><a ui-sref="about">About</a></li>
+    </ul>
+    <div ui-view="" autoscroll="false"></div>
+</body>
+</html>

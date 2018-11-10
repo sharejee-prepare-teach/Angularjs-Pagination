@@ -30,4 +30,24 @@ public class MainController {
     public String toTwotest() {
         return "twotest";
     }
+
+    @RequestMapping(value = "/newst")
+    public String toNews(){
+        return "/tabs/news";
+    }
+
+    @RequestMapping(value = "/sportst")
+    public String toSport(){
+        return "/tabs/sports";
+    }
+
+    @RequestMapping(value = "/musict")
+    public String toMusic(){
+        return "/tabs/music";
+    }
+
+    @RequestMapping(value = "/indext")
+    public String toIndex(){
+        return "/tabs/index";
+    }
 }
