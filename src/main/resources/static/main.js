@@ -45,7 +45,7 @@ app.controller("StudentController", function($scope, $http) {
  
     $scope.createStudent = function() {
         _clearFormData();
-    }
+    };
  
     // HTTP DELETE- delete student by Id
     // Call: http://localhost:8080/student/{stuId}
