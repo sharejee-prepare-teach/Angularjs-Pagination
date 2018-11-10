@@ -52,33 +52,131 @@ app.controller('submenuController', function ($scope, $rootScope, $state) {
 });
 
 app.controller('StudentController', function ($scope, $http) {
-/*
-    $scope.showSubMenu = true;
-
-    $scope.$watch(function(){
-        return $state.$current.name
-    }, function(currentStateName){
-        $scope.showSubMenu = (currentStateName === 'news.sports' ? false : true);
-    });*/
-
     alert("StudentController");
     _refreshStudentData();
     function _refreshStudentData() {
+        var data;
+        var ft = "";
         $http({
-            method: 'GET',
-            url: '/students'
+            method:'GET',
+            url:'/students/p/'+1+'/'+3,
+            data:{
+                currentPage:1,
+                pageSize:3
+            }
         }).then(
-            function(res) { // success
-                $scope.students = res.data;
+            function(largeLoad) { // success
+                //with data must send the total no of items as well
+                $scope.totalServerItems = largeLoad.data.total;
+                //here's the list of data to be displayed
+                data = largeLoad.data.list.filter(function (item) {
+                    return JSON.stringify(item).toLowerCase().indexOf(ft) != -1;
+                });
+                $scope.setPagingData(data, 1, 3);
+                $scope.students = largeLoad.data.content;
             },
             function(res) { // error
                 console.log("Error: " + res.status + " : " + res.data);
             }
         );
     }
+
+    $scope.filterOptions = {
+
+        //text you want to search will be put inside the filterText
+        filterText: ""
+    };
+
+    $scope.pagingOptions = {
+        //no of records that need to be displayed per page will be depend on pagesizes
+        pageSizes: [1,2,3],
+        pageSize: 1,
+        //this is for the page no that is selected
+        currentPage: 1
+    };
+    //this is the method that is used to call the server and bring back the data in nggrid
+    $scope.getPagedDataAsync = function (pageSize, page, searchText) {
+        setTimeout(function () {
+            var data;
+            var page = $scope.pagingOptions.currentPage;
+            var pageSize = $scope.pagingOptions.pageSize;
+
+            //if filter text is there then this condition will execute
+            if (searchText) {
+                var ft = searchText.toLowerCase();
+                $http({
+                    method:'GET',
+                    url:'/students/p/'+page+'/'+pageSize,
+                    data:{
+                        currentPage:page,
+                        pageSize:pageSize
+                    }
+                }).then(
+                    function(largeLoad) { // success
+                        //with data must send the total no of items as well
+                        $scope.totalServerItems = largeLoad.data.total;
+                        //here's the list of data to be displayed
+                        data = largeLoad.data.list.filter(function (item) {
+                            return JSON.stringify(item).toLowerCase().indexOf(ft) != -1;
+                        });
+                        $scope.setPagingData(data, page, pageSize);
+                        $scope.students = largeLoad.data.content;
+                    },
+                    function(res) { // error
+                        console.log("Error: " + res.status + " : " + res.data);
+                    }
+                );
+            }
+            else
+            {
+                $http({
+                    method:'GET',
+                    url:'/students/p/'+page+'/'+pageSize,
+                    data:{
+                        currentPage:page,
+                        pageSize:pageSize
+                    }
+                }).then(
+                    function(largeLoad) { // success
+                        $scope.totalServerItems = largeLoad.data.total;
+                        $scope.setPagingData(largeLoad.data.list, page, pageSize);
+                        $scope.students = largeLoad.data.content;
+                    },
+                    function(res) { // error
+                        console.log("Error: " + res.status + " : " + res.data);
+                    }
+                );
+            }
+        },100);
+    };
+    //according to the data coming from server side,pagination will be set accordingly
+    $scope.setPagingData = function(data, page, pageSize){
+        $scope.myData = data;
+        if (!$scope.$$phase) {
+            $scope.$apply();
+        }
+    };
+    //watch for pagination option.here pagingOptions will be watched each time value changes and then set the data accordingly
+    $scope.$watch('pagingOptions', function (newVal, oldVal) {
+        if (newVal !== oldVal || newVal.currentPage !== oldVal.currentPage) {
+            $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage, $scope.filterOptions.filterText);
+        }
+    }, true);
+
+    $scope.$watch('filterOptions', function (newVal, oldVal) {
+        if (newVal !== oldVal) {
+            $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage, $scope.filterOptions.filterText);
+        }
+    }, true);
+
+
     $scope.gridOptions = {
         data: 'students',
-        enablePaging: false,
+        enablePaging: true,
+        showFooter: true,
+        totalServerItems: 'totalServerItems',
+        pagingOptions: $scope.pagingOptions,
+        filterOptions: $scope.filterOptions,
         columnDefs:[
             {displayName:'stuId',field:'stuId'},
             {displayName:'stuName',field:'stuName'},
@@ -86,60 +184,3 @@ app.controller('StudentController', function ($scope, $http) {
         ]
     };
 });
-
-/*app.controller('StudentController', ['$scope','StudentService',
-    function ($scope, StudentService) {
-        var paginationOptions = {
-            pageNumber: 1,
-            pageSize: 5,
-            sort: null
-        };
-
-        StudentService.getStudents(
-            paginationOptions.pageNumber,
-            paginationOptions.pageSize).success(function(data){
-            $scope.gridOptions.data = data.content;
-            $scope.gridOptions.totalItems = data.totalElements;
-        });
-
-        $scope.gridOptions = {
-            paginationPageSizes: [5, 10, 20],
-            paginationPageSize: paginationOptions.pageSize,
-            enableColumnMenus:false,
-            useExternalPagination: true,
-            columnDefs: [
-                { name: 'stuId' },
-                { name: 'stuName' },
-                { name: 'address' }
-            ],
-            onRegisterApi: function(gridApi) {
-                $scope.gridApi = gridApi;
-                gridApi.pagination.on.paginationChanged(
-                    $scope,
-                    function (newPage, pageSize) {
-                        paginationOptions.pageNumber = newPage;
-                        paginationOptions.pageSize = pageSize;
-                        StudentService.getStudents(newPage,pageSize)
-                            .success(function(data){
-                                $scope.gridOptions.data = data.content;
-                                $scope.gridOptions.totalItems = data.totalElements;
-                            });
-                    });
-            }
-        };
-    }]);
-
-app.service('StudentService',['$http', function ($http) {
-
-    function getStudents(pageNumber,size) {
-        pageNumber = pageNumber > 0?pageNumber - 1:0;
-        return $http({
-            method: 'GET',
-            url: '/students/p/'+1+'/'+3
-            /!*url:'/students/p/'+1+'/'+3,*!/
-        });
-    }
-    return {
-        getStudents: getStudents
-    };
-}]);*/
