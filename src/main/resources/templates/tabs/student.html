@@ -20,34 +20,6 @@
 </head>
 
 <body ng-app="myApp">
-
-<!--<table border="1">
-    <tr>
-        <th>Emp Id</th>
-        <th>Emp No</th>
-        <th>Emp Name</th>
-        <th>Address</th>
-        <th>Edit</th>
-        <th>Delete</th>
-    </tr>
-
-    <tr ng-repeat="student in students">
-        <td> {{ student.stuId }}</td>
-        <td> {{ student.stuName }}</td>
-        <td >{{ student.stuSex }}</td>
-
-        <td >{{ student.address }}</td>
-        <td>
-            <a ng-click="editStudent(student)" class="btn btn-warning">Edit</a>
-        </td>
-        <td>
-            <a ng-click="deleteStudent(student)" class="btn btn-danger">Delete</a>
-        </td>
-    </tr>
-</table>-->
-<!--<div ng-controller="StudentController as vm">
-    <div ui-grid="gridOptions" class="grid" ui-grid-pagination></div>
-</div>-->
 <div class="gridStyle" ng-grid="gridOptions"></div>
 </body>
 </html>
