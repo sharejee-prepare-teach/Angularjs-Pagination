@@ -16,7 +16,8 @@ app.config(function($stateProvider, $urlRouterProvider){
         })
         .state('student', {
             url: '/student',
-            templateUrl : 'student'
+            templateUrl : 'student',
+            controller : 'StudentControllerS'
         })
         .state('about', {
             url: '/about',
