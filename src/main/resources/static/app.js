@@ -1,6 +1,6 @@
 var app = angular.module('myApp', ['ui.router']);
 
-app.config(function($stateProvider){
+app.config(function($stateProvider, $urlRouterProvider){
     $stateProvider
         .state('news', {
             url: '/newst',
@@ -13,7 +13,8 @@ app.config(function($stateProvider){
         .state('news.music', {
             url: '/musict',
             templateUrl : 'musict'
-        })
+        });
+    $urlRouterProvider.otherwise("/");
 });
 
 app.controller('submenuController', function ($scope, $rootScope, $state) {
