@@ -30,16 +30,6 @@ app.config(function($stateProvider, $urlRouterProvider){
     });
     $urlRouterProvider.otherwise("/");
 });
-/*app.controller('SportstController', function ($scope, $rootScope, $state) {
-    alert("SportstController");
-    $scope.showSubMenu = true;
-
-    $scope.$watch(function(){
-        return $state.$current.name
-    }, function(currentStateName){
-        $scope.showSubMenu = (currentStateName === 'news.sports' ? false : true);
-    });
-});*/
 app.controller('submenuController', function ($scope, $rootScope, $state) {
     alert("submenuController");
     $scope.showSubMenu = true;
