@@ -50,4 +50,14 @@ public class MainController {
     public String toIndex(){
         return "/tabs/index";
     }
+
+    @RequestMapping(value = "/about")
+    public String toAbout(){
+        return "/tabs/about";
+    }
+
+    @RequestMapping(value = "/student")
+    public String toStudent(){
+        return "/tabs/student";
+    }
 }

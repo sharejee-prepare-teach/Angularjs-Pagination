@@ -13,7 +13,16 @@ app.config(function($stateProvider, $urlRouterProvider){
         .state('news.music', {
             url: '/musict',
             templateUrl : 'musict'
-        });
+        })
+        .state('student', {
+            url: '/student',
+            templateUrl : 'student',
+            controller : 'StudentController'
+        })
+        .state('about', {
+            url: '/about',
+            templateUrl : 'about'
+    });
     $urlRouterProvider.otherwise("/");
 });
 
@@ -26,4 +35,32 @@ app.controller('submenuController', function ($scope, $rootScope, $state) {
     }, function(currentStateName){
         $scope.showSubMenu = (currentStateName === 'news.sports' ? false : true);
     })
+});
+
+app.controller('StudentController', function ($scope, $http) {
+    alert("StudentCtl..");
+    _refreshStudentData();
+    function _refreshStudentData() {
+        $http({
+            method: 'GET',
+            url: '/students'
+        }).then(
+            function(res) { // success
+                $scope.students = res.data;
+            },
+            function(res) { // error
+                console.log("Error: " + res.status + " : " + res.data);
+            }
+        );
+    }
+/*
+    $scope.gridOptions = {
+        data: 'students',
+        enablePaging: false,
+        columnDefs:[
+            {displayName:'stuId',field:'stuId'},
+            {displayName:'stuName',field:'stuName'},
+            {displayName:'address',field:'address'}
+        ]
+    };*/
 });

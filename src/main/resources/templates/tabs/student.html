@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>student</title>
+    <script th:src="@{/app.js}"></script>
+
+    <link type="text/css" rel="stylesheet" th:href="@{/main.css}" href="../main.css" />
+    <link rel="stylesheet" type="text/css" href="https://rawgithub.com/angular-ui/ng-grid/v2.0.11/ng-grid.css" />
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.21/angular.js"></script>
+    <script type="text/javascript" src="https://rawgit.com/angular-ui/ui-router/0.2.11/release/angular-ui-router.js"></script>
+    <script type="text/javascript" src="https://rawgithub.com/angular-ui/ng-grid/v2.0.13/build/ng-grid.debug.js"></script>
+</head>
+
+<body ng-app="myApp" ng-controller="StudentController">
+
+<table border="1">
+    <tr>
+        <th>Emp Id</th>
+        <th>Emp No</th>
+        <th>Emp Name</th>
+        <th>Address</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+
+    <tr ng-repeat="student in students">
+        <td> {{ student.stuId }}</td>
+        <td> {{ student.stuName }}</td>
+        <td >{{ student.stuSex }}</td>
+
+        <td >{{ student.address }}</td>
+        <td>
+            <a ng-click="editStudent(student)" class="btn btn-warning">Edit</a>
+        </td>
+        <td>
+            <a ng-click="deleteStudent(student)" class="btn btn-danger">Delete</a>
+        </td>
+    </tr>
+</table>
+</body>
+</html>
