@@ -5,27 +5,28 @@ myapp.config(function($stateProvider){
             url: "/multiuiview/home",
             views: {
                 "viewA": {
-                    template: "multihome.viewA"
+                    template: "/multiuiview/route1",
+                    controller : 'TestMHomeCtl'
                 },
                 "viewB": {
-                    template: "multihome.viewB"
+                    template: "/multiuiview/route2"
                 }
-            },
-            controller : 'TestMHomeCtl'
+            }
+
         })
         .state('route1', {
-            url: "/route1",
+            url: "/multirouteone",
             views: {
                 "viewA": {
-                    template: "route1.viewA"
+                    template: "/multiuiview/route1"
                 },
                 "viewB": {
-                    template: "route1.viewB"
+                    template: "/multiuiview/route2"
                 }
             }
         })
         .state('route2', {
-            url: "/route2",
+            url: "/multiroutetwo",
             views: {
                 "viewA": {
                     template: "route2.viewA"
