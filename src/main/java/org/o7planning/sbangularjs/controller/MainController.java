@@ -60,4 +60,20 @@ public class MainController {
     public String toStudent(){
         return "/tabs/student";
     }
+
+    @RequestMapping(value = "/multihome")
+    public String goMuliHome(){
+        System.out.println("Multi Home");
+        return "/multiuiview/home";
+    }
+
+    @RequestMapping(value = "/multirouteone")
+    public String goMuliRouteOne(){
+        return "/multiuiview/route1";
+    }
+
+    @RequestMapping(value = "/multiroutetwo")
+    public String goMuliRouteTwo(){
+        return "/multiuiview/route2";
+    }
 }

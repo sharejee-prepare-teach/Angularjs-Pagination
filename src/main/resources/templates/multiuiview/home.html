@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myapp">
+<head>
+    <meta charset="UTF-8"/>
+    <title>AngularJS: UI-Router Quick Start</title>
+    <!-- Bootstrap CSS -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.1/css/bootstrap.min.css" rel="stylesheet"/>
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.21/angular.js"></script>
+    <script type="text/javascript" src="https://rawgit.com/angular-ui/ui-router/0.2.11/release/angular-ui-router.js"></script>
+
+    <script type="text/javascript" src="multiview.js"></script>
+</head>
+<body class="container">
+<div class="navbar">
+    <div class="navbar-inner">
+        <a class="brand" ui-sref="multihome">UI-Router App</a>
+        <ul class="nav">
+            <li><a ui-sref="multihome">Home</a></li>
+            <li><a ui-sref="route1">Route 1</a></li>
+            <li><a ui-sref="route2">Route 2</a></li>
+        </ul>
+    </div>
+</div>
+
+<div class="row">
+    <div class="span6">
+        <div class="well" ui-view="viewA"></div>
+    </div>
+    <div class="span6">
+        <div class="well" ui-view="viewB"></div>
+    </div>
+</div>
+</body>
+</html>
