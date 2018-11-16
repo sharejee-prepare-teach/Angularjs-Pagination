@@ -21,7 +21,7 @@ angular
                 url: '/:projectId',
             })
             .state('twoprojects.selected.dates', {
-                url: '/dates/:date',
+                url: '/twoprojects.selected.dates',
                 views: {
                     'menu@': {
                         templateUrl: '/twomenu'
