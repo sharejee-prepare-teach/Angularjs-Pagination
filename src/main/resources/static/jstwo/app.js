@@ -18,7 +18,7 @@ angular
                 }
             })
             .state('twoprojects.selected', {
-                url: '/:projectId',
+                url: '/:projectId'
             })
             .state('twoprojects.selected.dates', {
                 url: '/twoprojects.selected.dates',
