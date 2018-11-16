@@ -3,7 +3,7 @@ angular
     .module('projectplanner', ['ui.router'])
     .config(function($stateProvider, $urlRouterProvider) {
 
-        $urlRouterProvider.otherwise('/twoprojects');
+        $urlRouterProvider.otherwise('/');
         $stateProvider
             .state('twoprojects', {
                 url: '/twoprojects',
