@@ -76,4 +76,24 @@ public class MainController {
     public String goMuliRouteTwo(){
         return "/multiuiview/route2";
     }
+
+    @RequestMapping(value = "/twoindex")
+    public String goTwoIndex() {
+        return "/multiuiview/two/index";
+    }
+
+    @RequestMapping(value = "/twomenu")
+    public String goTwoMenu() {
+        return "/multiuiview/two/menu";
+    }
+
+    @RequestMapping(value = "/twoprojects")
+    public String goTwoProject() {
+        return "/multiuiview/two/projects";
+    }
+
+    @RequestMapping(value = "/twodateplanner")
+    public String goTwoDatePlanner() {
+        return "/multiuiview/two/dateplanner";
+    }
 }
