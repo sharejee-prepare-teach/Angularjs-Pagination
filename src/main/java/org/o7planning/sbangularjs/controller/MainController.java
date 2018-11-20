@@ -96,4 +96,9 @@ public class MainController {
     public String goTwoDatePlanner() {
         return "/multiuiview/two/dateplanner";
     }
+
+    @RequestMapping(value = "/cross")
+    public String toCrossHome() {
+        return "/cross_controller/cross_home";
+    }
 }
