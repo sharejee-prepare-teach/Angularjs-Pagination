@@ -8,7 +8,7 @@ app.factory('MapService', function() {
         addMarker: addMarker,
         getMarkers: getMarkers,
         registerObserverCallback: registerObserverCallback
-    }
+    };
 
     function addMarker (marker) {
         markers.push(marker);
