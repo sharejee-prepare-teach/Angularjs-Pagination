@@ -172,7 +172,14 @@ app.controller('StudentControllerS', function ($scope, $http) {
         ]
     };
 });
-app.controller('StudentController', function ($scope, $http) {
+app.controller('StudentController', function ($scope, $http,$rootScope, $state) {
+    $scope.showMenu = true;
+
+    $scope.$watch(function(){
+        return $state.$current.name
+    }, function(currentStateName){
+        $scope.showMenu = (currentStateName === 'student' ? false : true);
+    });
     alert("StudentController");
     _refreshStudentData();
     function _refreshStudentData() {
