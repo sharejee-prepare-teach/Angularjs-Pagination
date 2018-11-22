@@ -172,7 +172,8 @@ app.controller('StudentControllerS', function ($scope, $http) {
         ]
     };
 });
-app.controller('StudentController', function ($scope, $http,$rootScope, $state) {
+app.controller('StudentController',['$scope','$http','$rootScope','$state','$location','$window'
+    , function ($scope, $http,$rootScope, $state,$location,$window) {
     $scope.showMenu = true;
 
     $scope.$watch(function(){
@@ -180,6 +181,12 @@ app.controller('StudentController', function ($scope, $http,$rootScope, $state) 
     }, function(currentStateName){
         $scope.showMenu = (currentStateName === 'student' ? false : true);
     });
+
+    $scope.myFunc = function() {
+        alert("I click");
+        $window.location.href = 'http://localhost:8083/indext';
+    };
+
     alert("StudentController");
     _refreshStudentData();
     function _refreshStudentData() {
@@ -311,4 +318,4 @@ app.controller('StudentController', function ($scope, $http,$rootScope, $state) 
             {displayName:'address',field:'address'}
         ]
     };
-});
+}]);
