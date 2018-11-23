@@ -70,4 +70,9 @@ public class MainController {
     public String toTab3(){
         return "/tabs3/index";
     }
+
+    @RequestMapping(value = "/maintabsthree")
+    public String toMainTab3(){
+        return "/tabs3/main";
+    }
 }

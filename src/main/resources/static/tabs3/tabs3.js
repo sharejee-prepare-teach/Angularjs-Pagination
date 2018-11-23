@@ -1,8 +1,16 @@
 var app = angular.module('dsntApp', ['ngMaterial', "ui.router"]);
 app.config(function($stateProvider, $urlRouterProvider) {
-
-            $urlRouterProvider.otherwise('/tab/dash');
             $stateProvider
+                .state('maintabsthree', {
+                    url: "/maintabsthree",
+                    templateUrl: "maintabsthree",
+                    controller : 'MainController'
+                })
+                .state('tabthree', {
+                    url: "/tabthree",
+                    templateUrl: "tabthree",
+                    controller : 'tabCtrl'
+                })
                 .state('view1', {
                     url: "/view1",
                     templateUrl: "partials/view1.html"
@@ -16,8 +24,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
                     templateUrl: "partials/view3.html"
                 })
             ;
+    $urlRouterProvider.otherwise('/tab/dash');
         });
 app.controller('tabCtrl', function($scope, $location, $log) {
+    alert("tabCtrl..");
             $scope.selectedIndex = 0;
 
             $scope.$watch('selectedIndex', function(current, old) {
@@ -33,4 +43,8 @@ app.controller('tabCtrl', function($scope, $location, $log) {
                         break;
                 }
             });
+});
+
+app.controller('MainController', function($scope, $location, $log) {
+    alert("MainController..");
 });
