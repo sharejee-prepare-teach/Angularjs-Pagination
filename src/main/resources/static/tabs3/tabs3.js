@@ -1,7 +1,5 @@
-(function(angular, undefined) {
-    "use strict";
-    angular.module('dsntApp', ['ngMaterial', "ui.router"])
-        .config(function($stateProvider, $urlRouterProvider) {
+var app = angular.module('dsntApp', ['ngMaterial', "ui.router"]);
+app.config(function($stateProvider, $urlRouterProvider) {
 
             $urlRouterProvider.otherwise('/tab/dash');
             $stateProvider
@@ -18,8 +16,8 @@
                     templateUrl: "partials/view3.html"
                 })
             ;
-        })
-        .controller('tabCtrl', function($scope, $location, $log) {
+        });
+app.controller('tabCtrl', function($scope, $location, $log) {
             $scope.selectedIndex = 0;
 
             $scope.$watch('selectedIndex', function(current, old) {
@@ -35,6 +33,4 @@
                         break;
                 }
             });
-        });
-
-})(angular);
+});

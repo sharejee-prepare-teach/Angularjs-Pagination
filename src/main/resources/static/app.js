@@ -45,16 +45,29 @@ app.config(function($stateProvider, $urlRouterProvider){
             url: '/about',
             views: {
                 "viewTab": {
-                    templateUrl: "about"
+                    templateUrl: "about",
+                    controller : 'tabCtrl'
                 }
             }
+        })
+        .state('view1', {
+            url: "/view1",
+            templateUrl: "partials/view1.html"
+        })
+        .state('view2', {
+            url: "/view2",
+            templateUrl: "partials/view2.html"
+        })
+        .state('view3', {
+            url: "/view3",
+            templateUrl: "partials/view3.html"
         })
         .state('indext', {
             url: '/indext',
             templateUrl : 'indext',
             controller : 'StudentController'
     });
-    $urlRouterProvider.otherwise("/");
+    $urlRouterProvider.otherwise("/tab/dash");
 });
 app.controller('submenuController', function ($scope, $rootScope, $state) {
     alert("submenuController");
@@ -345,3 +358,20 @@ app.controller('StudentController',['$scope','$http','$rootScope','$state','$loc
         ]
     };
 }]);
+app.controller('tabCtrl', function($scope, $location, $log) {
+    $scope.selectedIndex = 0;
+
+    $scope.$watch('selectedIndex', function(current, old) {
+        switch (current) {
+            case 0:
+                $location.url("/view1");
+                break;
+            case 1:
+                $location.url("/view2");
+                break;
+            case 2:
+                $location.url("/view3");
+                break;
+        }
+    });
+});
