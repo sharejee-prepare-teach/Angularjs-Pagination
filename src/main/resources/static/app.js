@@ -8,7 +8,14 @@ app.config(function($stateProvider, $urlRouterProvider){
         })
         .state('news.sports', {
             url: '/sportst',
-            templateUrl : 'sportst'
+            views: {
+                "viewA": {
+                    templateUrl: "sportst"
+                },
+                "viewB": {
+                    template: "index.viewB"
+                }
+            }
         })
         .state('news.music', {
             url: '/musict',
@@ -16,8 +23,15 @@ app.config(function($stateProvider, $urlRouterProvider){
         })
         .state('student', {
             url: '/student',
-            templateUrl : 'student',
-            controller : 'StudentControllerS'
+            views: {
+                "viewTab": {
+                    templateUrl: "student",
+                    controller : 'StudentControllerS'
+                },
+                "viewB": {
+                    template: "index.viewB"
+                }
+            }
         })
         .state('about', {
             url: '/about',

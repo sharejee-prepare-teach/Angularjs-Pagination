@@ -3,10 +3,31 @@
 <head>
     <meta charset="UTF-8"/>
     <title>student</title>
+    <link data-require="bootstrap@3.3.7" data-semver="3.3.7" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+
+    <link rel="stylesheet" type="text/css" href="https://rawgithub.com/angular-ui/ng-grid/v2.0.11/ng-grid.css" />
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.21/angular.js"></script>
+    <script type="text/javascript" src="https://rawgit.com/angular-ui/ui-router/0.2.11/release/angular-ui-router.js"></script>
+    <script type="text/javascript" src="https://rawgithub.com/angular-ui/ng-grid/v2.0.13/build/ng-grid.debug.js"></script>
+
+    <style type="text/css">
+        .gridStyle {
+            height: 300px;
+        }
+    </style>
+
+    <script type="text/javascript" src="app.js"></script>
 </head>
 
 <body ng-app="myApp" ng-controller="StudentControllerS">
 <button ng-click="myFunc()">Back</button>
 <div class="gridStyle" ng-grid="gridOptions"></div>
+
+<ul class="nav nav-pills">
+    <li><a ui-sref="news">sportst</a></li>
+    <li><a ui-sref="about">About</a></li>
+</ul>
+<div ui-view="viewA" autoscroll="false"></div>
 </body>
 </html>
