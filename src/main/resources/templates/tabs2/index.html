@@ -24,9 +24,9 @@
 </div>
 <script type="text/javascript" charset="utf-8">
     var app = angular.module('app', ['ui.bootstrap']);
-    app.config(function($routeProvider, $locationProvider) {
-        $routeProvider
-                .when('/', {
+    app.config(function($stateProvider, $urlRouterProvider) {
+        $stateProvider
+                /*.when('/', {
                     controller: 'MainCtrl'
                 }).when('/room/:id', {
                     controller: 'RoomCtrl',
@@ -34,8 +34,8 @@
                     controller: 'DashboardCtrl'
                 }).otherwise({
                     redirectTo: '/'
-                })
-                /*.state('/', {
+                })*/
+                .state('/', {
                     url: '/',
                     templateUrl : '',
                     controller: 'MainCtrl'
@@ -49,9 +49,9 @@
                     url: '/dashboard',
                     templateUrl : 'dashboard',
                     controller: 'DashboardCtrl'
-                });*/
+                });
 
-       .otherwise("/");/*
+        /*.otherwise("/");
             $locationProvider.html5Mode(false);*/
         });
 

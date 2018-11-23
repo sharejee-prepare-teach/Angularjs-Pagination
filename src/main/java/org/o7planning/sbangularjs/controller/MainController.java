@@ -65,4 +65,9 @@ public class MainController {
     public String toTab2(){
         return "/tabs2/index";
     }
+
+    @RequestMapping(value = "/tabthree")
+    public String toTab3(){
+        return "/tabs3/index";
+    }
 }
