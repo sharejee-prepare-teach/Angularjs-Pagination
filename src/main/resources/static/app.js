@@ -4,12 +4,16 @@ app.config(function($stateProvider, $urlRouterProvider){
     $stateProvider
         .state('news', {
             url: '/newst',
-            templateUrl : 'newst'
+            views: {
+                "viewTab": {
+                    templateUrl: "newst"
+                }
+            }
         })
         .state('news.sports', {
             url: '/sportst',
             views: {
-                "viewA": {
+                "viewSport": {
                     templateUrl: "sportst"
                 },
                 "viewB": {
@@ -19,7 +23,11 @@ app.config(function($stateProvider, $urlRouterProvider){
         })
         .state('news.music', {
             url: '/musict',
-            templateUrl : 'musict'
+            views: {
+                "viewSport": {
+                    templateUrl: "musict"
+                }
+            }
         })
         .state('student', {
             url: '/student',
@@ -35,7 +43,11 @@ app.config(function($stateProvider, $urlRouterProvider){
         })
         .state('about', {
             url: '/about',
-            templateUrl : 'about'
+            views: {
+                "viewTab": {
+                    templateUrl: "about"
+                }
+            }
         })
         .state('indext', {
             url: '/indext',
