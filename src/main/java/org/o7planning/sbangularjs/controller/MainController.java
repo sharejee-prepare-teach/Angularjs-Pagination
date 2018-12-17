@@ -2,7 +2,8 @@ package org.o7planning.sbangularjs.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-  
+import org.springframework.web.bind.annotation.RequestMethod;
+
 @Controller
 public class MainController {
   
@@ -29,5 +30,9 @@ public class MainController {
     @RequestMapping("/twotest")
     public String toTwotest() {
         return "twotest";
+    }
+    @RequestMapping(value = "/text_editor_angular",method = RequestMethod.GET)
+    private String toNewsAngularJSEditor(){
+        return "/text_editor_angular";
     }
 }
