@@ -45,7 +45,7 @@ app.controller("StudentController", function($scope, $http) {
  
     $scope.createStudent = function() {
         _clearFormData();
-    }
+    };
  
     // HTTP DELETE- delete student by Id
     // Call: http://localhost:8080/student/{stuId}
@@ -121,11 +121,11 @@ app.controller("StudentController", function($scope, $http) {
 app.config(function ($stateProvider, $urlRouterProvider) {
     $stateProvider.state('state1', {
         url: '/main',
-        templateUrl: 'main.html',
+        templateUrl: 'main',
         controller: 'MyCtrl'
     });
     $stateProvider.state('state2', {
-        url: '/one',
+        url: '/two',
         templateUrl: 'two.html',
         controller: 'MyCtrl'
     });
