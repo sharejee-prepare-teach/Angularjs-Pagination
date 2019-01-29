@@ -1,11 +1,16 @@
 
-var app = angular.module("app", ['ngGrid']);
+var app = angular.module("app", ['ngGrid','ui.bootstrap']);
  
 // Controller Part
 app.controller("StudentController", function($scope, $http) {
- 
+    $scope.filteredStudents = [];
+    $scope.currentPage = 1;
+    $scope.numPerPage = 5;
+    $scope.maxSize = 5;
  
     $scope.students = [];
+    $scope.studentsp = [];
+
     $scope.studentForm = {
         stuId: 1,
         stuName: "",
@@ -75,6 +80,14 @@ app.controller("StudentController", function($scope, $http) {
         }).then(
             function(res) { // success
                 $scope.students = res.data;
+                $scope.studentsp = res.data;
+
+                alert("studentsp: "+$scope.studentsp);
+                $scope.$watch('currentPage + numPerPage', function () {
+                    var begin = (($scope.currentPage - 1) * $scope.numPerPage)
+                        , end = begin + $scope.numPerPage;
+                    $scope.filteredStudents = $scope.studentsp.slice(begin, end);
+                });
             },
             function(res) { // error
                 console.log("Error: " + res.status + " : " + res.data);
@@ -102,6 +115,7 @@ app.controller("StudentController", function($scope, $http) {
         $scope.studentForm.stuSex = "";
         $scope.studentForm.address = "";
     };
+
     $scope.gridOptions = {
         data: 'students',
         enableRowSelection: false,
