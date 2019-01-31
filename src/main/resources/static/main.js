@@ -7,7 +7,10 @@ app.controller("StudentController", function($scope, $http) {
     $scope.currentPage = 1;
     $scope.numPerPage = 5;
     $scope.maxSize = 5;
- 
+
+    $scope.currentPageVT = 0;
+    $scope.pageSizeVT = 10;
+
     $scope.students = [];
     $scope.studentsp = [];
 
@@ -20,6 +23,9 @@ app.controller("StudentController", function($scope, $http) {
  
     // Now load the data from server
     _refreshStudentData();
+
+
+
  
     // HTTP POST/PUT methods for add/edit student  
     // Call: http://localhost:8080/student
@@ -50,7 +56,7 @@ app.controller("StudentController", function($scope, $http) {
  
     $scope.createStudent = function() {
         _clearFormData();
-    }
+    };
  
     // HTTP DELETE- delete student by Id
     // Call: http://localhost:8080/student/{stuId}
@@ -74,6 +80,10 @@ app.controller("StudentController", function($scope, $http) {
     // HTTP GET- get all students collection
     // Call: http://localhost:8080/students
     function _refreshStudentData() {
+        $scope.numberOfPages=function(){
+            return Math.ceil($scope.students.length/$scope.pageSizeVT);
+        };
+
         $http({
             method: 'GET',
             url: '/students'
@@ -131,3 +141,26 @@ app.controller("StudentController", function($scope, $http) {
 
     };
 });
+
+app.filter('startFrom', function() {
+    return function(input, start) {
+        start = +start; //parse to int
+        return input.slice(start);
+    }
+});
+/*
+
+app.controller("MyCtrl", function($scope) {
+/!*function MyCtrl($scope) {*!/
+    alert("MyCtl..");
+    $scope.currentPageVT = 0;
+    $scope.pageSizVT = 10;
+    $scope.data = [];
+
+    $scope.numberOfPages=function(){
+        return Math.ceil($scope.data.length/$scope.pageSize);
+    };
+    for (var i=0; i<45; i++) {
+        $scope.data.push("Item "+i);
+    }
+});*/
